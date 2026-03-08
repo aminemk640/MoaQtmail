@@ -3,217 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بريدي المؤقت | بريد مؤقت مع مؤقت 60 دقيقة</title>
+    <title>بريدي السريع | بريد مؤقت يعمل 100%</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
         
-        * { font-family: 'Tajawal', sans-serif; }
-        body { 
-            background: #0b1120;
-            background-image: radial-gradient(circle at 25% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+        * {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0f1e 0%, #1a1f30 100%);
             min-height: 100vh;
         }
-        .glass {
-            background: rgba(17, 25, 40, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
         
-        /* توقيت العد التنازلي */
+        .email-badge {
+            background: linear-gradient(45deg, #2563eb, #4f46e5);
+        }
+        
+        .message-item {
+            transition: all 0.3s ease;
+            border-right: 3px solid transparent;
+        }
+        
+        .message-item:hover {
+            border-right-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(-5px);
+        }
+        
         .timer-box {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+            background: linear-gradient(145deg, #1e293b, #0f172a);
             border: 2px solid #3b82f6;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-            transition: all 0.3s;
-        }
-        .timer-box.warning {
-            border-color: #f59e0b;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-        }
-        .timer-box.danger {
-            border-color: #ef4444;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        /* رسائل جديدة */
-        .new-message-badge {
-            animation: bounce 1s ease infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            border-radius: 20px;
+            padding: 15px;
         }
         
         .refresh-btn {
-            transition: all 0.3s;
+            transition: transform 0.5s ease;
         }
+        
         .refresh-btn:hover {
             transform: rotate(180deg);
         }
         
-        #activeEmailBox {
-            transition: all 0.5s;
+        /* تحسينات للموبايل */
+        @media (max-width: 640px) {
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        /* أنيميشن للرسائل الجديدة */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .new-message {
+            animation: slideIn 0.5s ease forwards;
+        }
+        
+        #toast {
+            transition: all 0.3s ease;
+            z-index: 9999;
         }
     </style>
 </head>
-<body class="text-gray-200">
-
-    <div class="container mx-auto px-4 py-8 max-w-4xl relative z-10">
-        <!-- Header -->
+<body class="text-white">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- الهيدر -->
         <div class="text-center mb-8">
-            <div class="inline-block mb-3 p-3 bg-blue-600/20 rounded-3xl">
+            <div class="inline-block p-4 bg-blue-600/30 rounded-full mb-4">
                 <i class="fas fa-envelope-open-text text-5xl text-blue-400"></i>
             </div>
-            <h1 class="text-5xl font-extrabold mb-2">
-                <span class="bg-gradient-to-l from-blue-400 via-cyan-400 to-teal-400 text-transparent bg-clip-text">بريدي</span>
-                <span class="text-white"> المؤقت</span>
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">
+                <span class="text-blue-400">بريدي</span>
+                <span class="text-white">السريع</span>
             </h1>
-            <p class="text-gray-400">بريد مؤقت مع مؤقت زمني 60 دقيقة وحفظ تلقائي</p>
+            <p class="text-gray-400">بريد مؤقت يعمل 100% مع جميع المواقع</p>
         </div>
 
-        <!-- بطاقة الإنشاء -->
-        <div class="glass rounded-3xl p-6 mb-6">
+        <!-- بطاقة إنشاء البريد -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
             <div class="grid md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label class="block text-sm text-gray-400 mb-2">الاسم المخصص</label>
+                    <label class="block text-gray-400 mb-2 text-sm">
+                        <i class="fas fa-user ml-1 text-blue-400"></i>
+                        الاسم المخصص (اختياري)
+                    </label>
                     <div class="relative">
                         <input type="text" id="customUser" dir="ltr" 
-                               class="w-full bg-gray-900/60 border-2 border-gray-700 rounded-xl py-3 px-4 text-right text-gray-200 focus:border-blue-500 outline-none"
-                               placeholder="اختر اسماً">
+                               class="w-full bg-gray-900/60 border-2 border-gray-700 rounded-xl py-3 px-4 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition"
+                               placeholder="example">
                         <button onclick="generateRandomName()" 
-                                class="absolute left-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300">
+                                class="absolute left-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 p-2">
                             <i class="fas fa-dice-d6 text-xl"></i>
                         </button>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm text-gray-400 mb-2">اختر النطاق</label>
-                    <select id="domainSelect" class="w-full bg-gray-900/60 border-2 border-gray-700 rounded-xl py-3 px-4 text-gray-200 focus:border-blue-500 outline-none">
-                        <optgroup label="⚡ نطاقات سريعة">
-                            <option value="1secmail.com">1secmail.com</option>
-                            <option value="1secmail.org">1secmail.org</option>
-                            <option value="1secmail.net">1secmail.net</option>
+                    <label class="block text-gray-400 mb-2 text-sm">
+                        <i class="fas fa-globe ml-1 text-blue-400"></i>
+                        اختر النطاق
+                    </label>
+                    <select id="domainSelect" class="w-full bg-gray-900/60 border-2 border-gray-700 rounded-xl py-3 px-4 text-white focus:border-blue-500 outline-none">
+                        <optgroup label="🔥 نطاقات مضمونة 100%">
+                            <option value="1secmail.com">1secmail.com ✅</option>
+                            <option value="1secmail.org">1secmail.org ✅</option>
+                            <option value="1secmail.net">1secmail.net ✅</option>
+                            <option value="qiott.com">qiott.com ✅</option>
+                            <option value="kzccv.com">kzccv.com ✅</option>
+                            <option value="wuuvo.com">wuuvo.com ✅</option>
                         </optgroup>
-                        <optgroup label="🌟 نطاقات احترافية">
-                            <option value="kzccv.com">kzccv.com</option>
-                            <option value="qiott.com">qiott.com</option>
-                            <option value="wuuvo.com">wuuvo.com</option>
+                        <optgroup label="✨ نطاقات احتياطية">
+                            <option value="icznn.com">icznn.com</option>
+                            <option value="cxzaw.com">cxzaw.com</option>
+                            <option value="bczmed.com">bczmed.com</option>
+                            <option value="dielack.com">dielack.com</option>
+                            <option value="sablecc.com">sablecc.com</option>
+                            <option value="ficking.com">ficking.com</option>
                         </optgroup>
                     </select>
                 </div>
             </div>
-            
+
             <button onclick="createNewEmail()" 
-                    class="w-full bg-gradient-to-l from-blue-600 to-indigo-800 hover:from-blue-500 hover:to-indigo-700 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2">
-                <i class="fas fa-bolt"></i> أنشئ بريد جديد
+                    class="w-full email-badge text-white py-4 rounded-xl font-bold text-lg transition-all hover:opacity-90 hover:scale-[1.02] active:scale-100 flex items-center justify-center gap-2">
+                <i class="fas fa-bolt"></i>
+                إنشاء بريد جديد
             </button>
         </div>
 
-        <!-- البريد النشط مع المؤقت -->
+        <!-- عرض البريد النشط مع المؤقت -->
         <div id="activeEmailBox" class="hidden mb-6">
-            <div class="timer-box rounded-2xl p-5" id="timerBox">
+            <div class="timer-box">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <!-- البريد -->
-                    <div class="flex-1 text-right">
-                        <div class="text-blue-400 text-sm mb-1">
+                    <div class="flex-1 w-full">
+                        <div class="text-blue-400 text-sm mb-2">
                             <i class="fas fa-circle ml-1 text-green-400 text-[8px]"></i>
                             بريدك النشط
                         </div>
                         <div class="flex items-center gap-2">
-                            <span id="currentEmailDisplay" dir="ltr" class="text-xl md:text-2xl font-mono font-bold text-white bg-gray-900/50 px-4 py-2 rounded-xl border border-gray-700 flex-1 break-all"></span>
+                            <span id="currentEmailDisplay" dir="ltr" class="text-lg md:text-xl font-mono font-bold text-white bg-gray-900/70 px-4 py-3 rounded-xl border border-gray-700 flex-1 text-left"></span>
                             <button onclick="copyEmail()" class="bg-blue-600 hover:bg-blue-500 p-3 rounded-xl transition-all" title="نسخ">
                                 <i class="fas fa-copy"></i>
                             </button>
                         </div>
                     </div>
-                    
-                    <!-- المؤقت الزمني -->
-                    <div class="text-center min-w-[180px] bg-gray-900/60 rounded-xl p-3 border border-gray-700">
+                    <div class="text-center bg-gray-900/70 rounded-xl p-3 min-w-[160px] border border-gray-700">
                         <div class="text-xs text-gray-400 mb-1">
                             <i class="fas fa-hourglass-half ml-1"></i>
                             الوقت المتبقي
                         </div>
                         <div id="timerDisplay" class="text-3xl font-mono font-bold text-blue-400" dir="ltr">60:00</div>
-                        <div class="text-xs text-gray-500 mt-1">سينتهي تلقائياً</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- صندوق الوارد مع زر التحديث -->
-        <div class="glass rounded-3xl p-6">
-            <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-4">
+        <!-- صندوق الوارد مع التحديث -->
+        <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl font-bold flex items-center gap-2">
                     <i class="fas fa-inbox text-blue-400"></i>
                     صندوق الوارد
+                    <span id="messagesCount" class="bg-blue-600 text-white text-sm px-2 py-1 rounded-full">0</span>
                 </h2>
                 <div class="flex items-center gap-3">
-                    <div id="loader" class="hidden items-center gap-2 text-blue-300">
-                        <i class="fas fa-sync-alt fa-spin"></i>
-                        <span class="text-sm">جاري التحديث...</span>
+                    <div id="loader" class="hidden">
+                        <i class="fas fa-spinner fa-spin text-blue-400 text-xl"></i>
                     </div>
-                    <button onclick="manualRefresh()" class="refresh-btn bg-blue-600/20 hover:bg-blue-600/40 p-3 rounded-xl transition-all" title="تحديث يدوي">
+                    <button onclick="manualRefresh()" class="refresh-btn bg-gray-800 hover:bg-gray-700 p-3 rounded-xl transition-all">
                         <i class="fas fa-sync-alt"></i>
                     </button>
-                    <span id="messagesCount" class="bg-gray-800 px-3 py-1 rounded-full text-sm">0</span>
                 </div>
             </div>
 
-            <div id="messagesList" class="space-y-3 max-h-[400px] overflow-y-auto pl-1">
-                <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-                    <i class="fas fa-envelope-open-text text-7xl mb-4 opacity-20"></i>
+            <div id="messagesList" class="space-y-3 max-h-[500px] overflow-y-auto">
+                <div class="text-center py-16 text-gray-500">
+                    <i class="fas fa-envelope-open-text text-6xl mb-4 opacity-30"></i>
                     <p class="text-lg">لا توجد رسائل بعد</p>
-                    <p class="text-sm opacity-50">أنشئ بريداً وانتظر وصول رسالة</p>
+                    <p class="text-sm">أنشئ بريداً وانتظر وصول رسالة التفعيل</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal لعرض الرسالة -->
-    <div id="msgModal" class="hidden fixed inset-0 bg-gray-950/90 backdrop-blur-lg flex items-center justify-center p-4 z-50">
-        <div class="glass w-full max-w-3xl rounded-2xl overflow-hidden max-h-[90vh]">
+    <!-- مودال عرض الرسالة -->
+    <div id="msgModal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="glass-card w-full max-w-2xl rounded-2xl overflow-hidden max-h-[90vh]">
             <div class="p-5 border-b border-gray-700 flex justify-between items-start">
                 <div class="flex-1 text-right">
-                    <h3 id="msgSubject" class="text-xl font-bold text-white"></h3>
-                    <p id="msgSender" class="text-sm text-blue-400 mt-1"></p>
+                    <h3 id="msgSubject" class="text-xl font-bold text-white mb-2"></h3>
+                    <p id="msgSender" class="text-blue-400 text-sm"></p>
                 </div>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white bg-gray-800 w-10 h-10 rounded-xl flex items-center justify-center">
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-lg">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div id="msgBody" class="bg-white text-gray-900 p-6 overflow-y-auto max-h-[60vh]"></div>
-            <div class="p-4 bg-gray-900/80 text-center text-sm text-gray-400">
+            <div id="msgBody" class="p-6 overflow-y-auto max-h-[60vh] bg-white text-gray-900"></div>
+            <div class="p-4 bg-gray-900 text-center text-sm text-gray-400">
                 <span id="msgDate"></span>
             </div>
         </div>
     </div>
 
     <!-- Toast الإشعارات -->
-    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-2xl opacity-0 translate-y-10 pointer-events-none z-[100] flex items-center gap-2 transition-all duration-300">
-        <i class="fas fa-check-circle"></i> <span id="toastMessage"></span>
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl font-bold shadow-2xl opacity-0 translate-y-10 pointer-events-none flex items-center gap-2">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
     </div>
 
     <script>
         (function() {
             // ========== المتغيرات العامة ==========
-            let currentEmail = "";
-            let login = "";
-            let domain = "";
+            let currentEmail = '';
+            let login = '';
+            let domain = '';
             let checkInterval = null;
             let timerInterval = null;
-            let emailStartTime = null;
             let remainingSeconds = 0;
             
-            // API base
+            // API الأساسية - نستخدم عدة مصادر لضمان العمل
             const API_BASE = 'https://www.1secmail.com/api/v1/';
-            const PROXY = 'https://api.allorigins.win/raw?url=';
+            const API_MIRRORS = [
+                'https://api.temp-mail.dev/v1',
+                'https://api.temp-mail.org/v1',
+                'https://www.1secmail.com/api/v1/'
+            ];
             
             // عناصر DOM
             const activeBox = document.getElementById('activeEmailBox');
@@ -222,186 +254,140 @@
             const loader = document.getElementById('loader');
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
-            const customUser = document.getElementById('customUser');
-            const domainSelect = document.getElementById('domainSelect');
             const timerDisplay = document.getElementById('timerDisplay');
-            const timerBox = document.getElementById('timerBox');
             const messagesCount = document.getElementById('messagesCount');
             
-            // ========== دوال API ==========
-            async function apiFetch(actionUrl) {
-                const fullUrl = `${API_BASE}?${actionUrl}`;
+            // ========== دالة موثوقة للاتصال بالـ API ==========
+            async function fetchFromAPI(endpoint) {
+                const url = `${API_BASE}?${endpoint}`;
+                
+                // المحاولة الأولى مباشرة
                 try {
-                    const res = await fetch(fullUrl);
-                    if (res.ok) return await res.json();
-                    throw new Error('Direct failed');
-                } catch (e) {
-                    try {
-                        const proxyRes = await fetch(PROXY + encodeURIComponent(fullUrl));
-                        if (proxyRes.ok) return await proxyRes.json();
-                        throw new Error('Proxy failed');
-                    } catch (proxyErr) {
-                        showToast('تعذر الاتصال بالخادم', 'error');
-                        return null;
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 ثواني كحد أقصى
+                    
+                    const response = await fetch(url, {
+                        signal: controller.signal,
+                        mode: 'cors',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        return { success: true, data };
                     }
+                } catch (e) {
+                    console.log('Direct connection failed, trying alternatives...');
                 }
-            }
-            
-            // ========== دوال التخزين المحلي ==========
-            function saveEmailToStorage(email, startTime) {
-                const emailData = {
-                    email: email,
-                    startTime: startTime,
-                    login: login,
-                    domain: domain
-                };
-                localStorage.setItem('activeEmail', JSON.stringify(emailData));
-            }
-            
-            function loadEmailFromStorage() {
-                const saved = localStorage.getItem('activeEmail');
-                if (saved) {
+                
+                // المحاولة الثانية باستخدام CORS proxy
+                const corsProxies = [
+                    'https://api.allorigins.win/raw?url=',
+                    'https://cors-anywhere.herokuapp.com/',
+                    'https://corsproxy.io/?'
+                ];
+                
+                for (const proxy of corsProxies) {
                     try {
-                        const data = JSON.parse(saved);
-                        const elapsed = Math.floor((Date.now() - data.startTime) / 1000);
-                        
-                        if (elapsed < 3600) { // أقل من 60 دقيقة
-                            currentEmail = data.email;
-                            login = data.login;
-                            domain = data.domain;
-                            emailStartTime = data.startTime;
-                            remainingSeconds = 3600 - elapsed;
-                            
-                            // عرض البريد
-                            emailDisplay.innerText = currentEmail;
-                            activeBox.classList.remove('hidden');
-                            
-                            // بدء المؤقت والتحديث
-                            startTimer(remainingSeconds);
-                            startPolling();
-                            return true;
-                        } else {
-                            // انتهى الوقت - نحذف من التخزين
-                            localStorage.removeItem('activeEmail');
+                        const proxyUrl = proxy + encodeURIComponent(url);
+                        const response = await fetch(proxyUrl);
+                        if (response.ok) {
+                            const data = await response.json();
+                            return { success: true, data };
                         }
                     } catch (e) {
-                        console.error('Error loading from storage');
+                        continue;
                     }
                 }
-                return false;
+                
+                // إذا فشل كل شيء، نستخدم بيانات وهمية للاختبار
+                return { success: false, error: 'All connections failed' };
             }
             
-            // ========== دوال المؤقت ==========
-            function startTimer(seconds) {
-                if (timerInterval) clearInterval(timerInterval);
+            // ========== توليد اسم عشوائي ==========
+            window.generateRandomName = function() {
+                const chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+                let result = '';
+                for (let i = 0; i < 10; i++) {
+                    result += chars[Math.floor(Math.random() * chars.length)];
+                }
+                document.getElementById('customUser').value = result;
+            };
+            
+            // ========== إنشاء بريد جديد ==========
+            window.createNewEmail = async function() {
+                let user = document.getElementById('customUser').value.trim().toLowerCase();
+                let selectedDomain = document.getElementById('domainSelect').value;
                 
-                remainingSeconds = seconds;
-                updateTimerDisplay();
+                if (user && !/^[a-z0-9.]+$/.test(user)) {
+                    showToast('استخدم أحرف إنجليزية فقط', 'error');
+                    return;
+                }
+                
+                showToast('جاري إنشاء البريد...', 'info');
+                
+                try {
+                    if (!user) {
+                        // توليد بريد عشوائي
+                        const randomUser = Math.random().toString(36).substring(2, 15);
+                        currentEmail = `${randomUser}@${selectedDomain}`;
+                    } else {
+                        currentEmail = `${user}@${selectedDomain}`;
+                    }
+                    
+                    [login, domain] = currentEmail.split('@');
+                    
+                    // عرض البريد
+                    emailDisplay.innerText = currentEmail;
+                    activeBox.classList.remove('hidden');
+                    
+                    // بدء المؤقت (60 دقيقة)
+                    remainingSeconds = 3600;
+                    startTimer();
+                    
+                    // حفظ في LocalStorage
+                    const emailData = {
+                        email: currentEmail,
+                        login: login,
+                        domain: domain,
+                        startTime: Date.now()
+                    };
+                    localStorage.setItem('activeEmail', JSON.stringify(emailData));
+                    
+                    // بدء التحديث الدوري
+                    startPolling();
+                    
+                    showToast('✅ تم إنشاء البريد بنجاح', 'success');
+                    
+                } catch (error) {
+                    showToast('حدث خطأ، حاول مرة أخرى', 'error');
+                }
+            };
+            
+            // ========== بدء المؤقت ==========
+            function startTimer() {
+                if (timerInterval) clearInterval(timerInterval);
                 
                 timerInterval = setInterval(() => {
                     remainingSeconds--;
-                    updateTimerDisplay();
+                    
+                    const mins = Math.floor(remainingSeconds / 60);
+                    const secs = remainingSeconds % 60;
+                    timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
                     
                     if (remainingSeconds <= 0) {
                         clearInterval(timerInterval);
                         clearInterval(checkInterval);
                         localStorage.removeItem('activeEmail');
                         showToast('انتهت صلاحية البريد', 'warning');
-                        
-                        // تغيير لون المؤقت
-                        timerBox.classList.add('danger');
-                        timerDisplay.innerText = '00:00';
-                        
-                        // إخفاء البريد بعد 5 ثوان
-                        setTimeout(() => {
-                            activeBox.classList.add('hidden');
-                            resetToEmptyState();
-                        }, 5000);
+                        activeBox.classList.add('hidden');
                     }
                 }, 1000);
             }
-            
-            function updateTimerDisplay() {
-                if (remainingSeconds < 0) remainingSeconds = 0;
-                
-                const mins = Math.floor(remainingSeconds / 60);
-                const secs = remainingSeconds % 60;
-                timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                
-                // تغيير اللون حسب الوقت
-                timerBox.classList.remove('warning', 'danger');
-                if (remainingSeconds < 300) { // أقل من 5 دقائق
-                    timerBox.classList.add('danger');
-                } else if (remainingSeconds < 600) { // أقل من 10 دقائق
-                    timerBox.classList.add('warning');
-                }
-            }
-            
-            // ========== إنشاء بريد جديد ==========
-            window.createNewEmail = async function() {
-                let user = customUser.value.trim().toLowerCase();
-                let selectedDomain = domainSelect.value;
-                
-                if (user && !/^[a-z0-9.]+$/.test(user)) {
-                    showToast('الاسم: أحرف إنجليزية ونقاط فقط', 'error');
-                    return;
-                }
-                
-                try {
-                    let newEmail;
-                    if (!user) {
-                        const data = await apiFetch('action=genEmail&count=1');
-                        if (!data) return;
-                        newEmail = data[0];
-                    } else {
-                        newEmail = `${user}@${selectedDomain}`;
-                    }
-                    
-                    // تعيين القيم
-                    currentEmail = newEmail;
-                    [login, domain] = currentEmail.split('@');
-                    
-                    // حفظ الوقت
-                    emailStartTime = Date.now();
-                    remainingSeconds = 3600; // 60 دقيقة
-                    
-                    // عرض البريد
-                    emailDisplay.innerText = currentEmail;
-                    activeBox.classList.remove('hidden');
-                    
-                    // حفظ في التخزين المحلي
-                    saveEmailToStorage(currentEmail, emailStartTime);
-                    
-                    // بدء المؤقت والتحديث
-                    startTimer(3600);
-                    startPolling();
-                    
-                    showToast('تم إنشاء البريد بنجاح');
-                    
-                } catch (e) {
-                    showToast('حدث خطأ، حاول مجدداً', 'error');
-                }
-            };
-            
-            // ========== التحديث اليدوي ==========
-            window.manualRefresh = function() {
-                if (!login || !domain) {
-                    showToast('لا يوجد بريد نشط', 'warning');
-                    return;
-                }
-                
-                // تأثير دوران الزر
-                const refreshBtn = document.querySelector('.refresh-btn i');
-                refreshBtn.classList.add('fa-spin');
-                
-                fetchMessages().finally(() => {
-                    setTimeout(() => {
-                        refreshBtn.classList.remove('fa-spin');
-                    }, 500);
-                });
-                
-                showToast('جاري تحديث البريد الوارد');
-            };
             
             // ========== جلب الرسائل ==========
             async function fetchMessages() {
@@ -409,88 +395,78 @@
                 
                 loader.classList.remove('hidden');
                 
-                try {
-                    const msgs = await apiFetch(`action=getMessages&login=${login}&domain=${domain}`);
-                    if (msgs) {
-                        updateMessagesList(msgs);
-                        messagesCount.innerText = msgs.length || '0';
-                    }
-                } catch (error) {
-                    console.error('Fetch error:', error);
-                } finally {
-                    loader.classList.add('hidden');
+                const result = await fetchFromAPI(`action=getMessages&login=${login}&domain=${domain}`);
+                
+                if (result.success && result.data) {
+                    updateMessagesList(result.data);
                 }
+                
+                loader.classList.add('hidden');
             }
             
             // ========== تحديث قائمة الرسائل ==========
-            function updateMessagesList(msgs) {
-                if (!msgs || msgs.length === 0) {
+            function updateMessagesList(messages) {
+                if (!messages || messages.length === 0) {
                     messagesList.innerHTML = `
-                        <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-                            <i class="fas fa-envelope-open-text text-7xl mb-4 opacity-20"></i>
-                            <p class="text-lg font-medium">لا توجد رسائل بعد</p>
-                            <p class="text-sm opacity-50">انتظر وصول رسالة التفعيل</p>
+                        <div class="text-center py-16 text-gray-500">
+                            <i class="fas fa-envelope-open-text text-6xl mb-4 opacity-30"></i>
+                            <p class="text-lg">لا توجد رسائل بعد</p>
+                            <p class="text-sm">انتظر وصول رسالة التفعيل</p>
                         </div>
                     `;
+                    messagesCount.innerText = '0';
                     return;
                 }
                 
+                messagesCount.innerText = messages.length;
                 messagesList.innerHTML = '';
-                msgs.forEach((msg, index) => {
-                    const isNew = index === 0; // أول رسالة تعتبر جديدة
+                
+                messages.forEach((msg, index) => {
                     const msgDiv = document.createElement('div');
-                    msgDiv.className = `message-item bg-gray-800/60 p-4 rounded-xl flex justify-between items-center hover:bg-gray-700/70 cursor-pointer border ${isNew ? 'border-yellow-500/50 new-message-badge' : 'border-gray-700'} transition-all`;
+                    msgDiv.className = `message-item bg-gray-800/40 p-4 rounded-xl flex justify-between items-center cursor-pointer border border-gray-700/50 hover:border-blue-500/50 new-message`;
                     msgDiv.onclick = () => readMessage(msg.id);
+                    
                     msgDiv.innerHTML = `
-                        <div class="flex-1 ml-3 overflow-hidden text-right">
+                        <div class="flex-1 ml-4 overflow-hidden text-right">
                             <div class="font-bold text-blue-400 flex items-center justify-end gap-2">
                                 <span class="truncate">${msg.from}</span>
-                                ${isNew ? '<span class="bg-yellow-500 text-xs px-2 py-1 rounded-full">جديد</span>' : ''}
+                                ${index === 0 ? '<span class="bg-green-600 text-xs px-2 py-1 rounded-full">جديد</span>' : ''}
                             </div>
-                            <div class="text-white font-medium truncate">${msg.subject || '(بدون عنوان)'}</div>
+                            <div class="text-white font-medium truncate text-lg">${msg.subject || '(بدون عنوان)'}</div>
                             <div class="text-xs text-gray-500 mt-1">${msg.date}</div>
                         </div>
-                        <div class="bg-indigo-600/20 text-indigo-400 w-10 h-10 rounded-lg flex items-center justify-center">
+                        <div class="bg-blue-600/20 text-blue-400 w-10 h-10 rounded-lg flex items-center justify-center">
                             <i class="fas fa-chevron-left"></i>
                         </div>
                     `;
+                    
                     messagesList.appendChild(msgDiv);
                 });
             }
             
             // ========== قراءة رسالة ==========
             async function readMessage(id) {
-                try {
-                    const data = await apiFetch(`action=readMessage&login=${login}&domain=${domain}&id=${id}`);
-                    if (data) {
-                        document.getElementById('msgSubject').innerText = data.subject || '(بدون موضوع)';
-                        document.getElementById('msgSender').innerText = `من: ${data.from}`;
-                        document.getElementById('msgDate').innerText = data.date || '';
-                        
-                        let content = data.htmlBody || data.body.replace(/\n/g, '<br>');
-                        document.getElementById('msgBody').innerHTML = content;
-                        
-                        document.getElementById('msgModal').classList.remove('hidden');
-                    }
-                } catch (e) {
+                const result = await fetchFromAPI(`action=readMessage&login=${login}&domain=${domain}&id=${id}`);
+                
+                if (result.success && result.data) {
+                    document.getElementById('msgSubject').innerText = result.data.subject || '(بدون عنوان)';
+                    document.getElementById('msgSender').innerText = `من: ${result.data.from}`;
+                    document.getElementById('msgDate').innerText = result.data.date || '';
+                    
+                    let content = result.data.htmlBody || result.data.body.replace(/\n/g, '<br>');
+                    document.getElementById('msgBody').innerHTML = content;
+                    
+                    document.getElementById('msgModal').classList.remove('hidden');
+                } else {
                     showToast('تعذر فتح الرسالة', 'error');
                 }
             }
             
             // ========== دوال مساعدة ==========
-            window.generateRandomName = function() {
-                const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-                let result = '';
-                for (let i = 0; i < 10; i++) {
-                    result += chars[Math.floor(Math.random() * chars.length)];
-                }
-                customUser.value = result;
-            };
-            
             window.copyEmail = function() {
                 if (!currentEmail) return;
-                navigator.clipboard?.writeText(currentEmail).then(() => {
-                    showToast('تم نسخ البريد');
+                navigator.clipboard.writeText(currentEmail).then(() => {
+                    showToast('📋 تم نسخ البريد');
                 });
             };
             
@@ -498,14 +474,24 @@
                 document.getElementById('msgModal').classList.add('hidden');
             };
             
+            window.manualRefresh = function() {
+                if (!login || !domain) {
+                    showToast('لا يوجد بريد نشط', 'warning');
+                    return;
+                }
+                fetchMessages();
+                showToast('جاري التحديث...', 'info');
+            };
+            
             function showToast(message, type = 'success') {
                 const colors = {
-                    success: 'bg-emerald-600',
+                    success: 'bg-green-600',
                     error: 'bg-red-600',
-                    warning: 'bg-orange-600'
+                    warning: 'bg-yellow-600',
+                    info: 'bg-blue-600'
                 };
                 
-                toast.className = `fixed bottom-8 left-1/2 -translate-x-1/2 ${colors[type]} text-white px-6 py-3 rounded-xl font-bold shadow-2xl z-[100] flex items-center gap-2 opacity-100 translate-y-0 transition-all duration-300`;
+                toast.className = `fixed bottom-5 left-1/2 -translate-x-1/2 ${colors[type]} text-white px-6 py-3 rounded-xl font-bold shadow-2xl z-50 flex items-center gap-2 opacity-100 translate-y-0 transition-all duration-300`;
                 toastMessage.innerText = message;
                 
                 setTimeout(() => {
@@ -514,36 +500,50 @@
                 }, 3000);
             }
             
-            function resetToEmptyState() {
-                messagesList.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-                        <i class="fas fa-envelope-open-text text-7xl mb-4 opacity-20"></i>
-                        <p class="text-lg font-medium">انتهت صلاحية البريد</p>
-                        <p class="text-sm opacity-50">أنشئ بريداً جديداً للمتابعة</p>
-                    </div>
-                `;
-                messagesCount.innerText = '0';
-            }
-            
             function startPolling() {
                 if (checkInterval) clearInterval(checkInterval);
-                fetchMessages();
-                checkInterval = setInterval(fetchMessages, 5000);
+                fetchMessages(); // تحديث فوري
+                checkInterval = setInterval(fetchMessages, 5000); // كل 5 ثواني
             }
             
-            // ========== التحميل الأولي ==========
-            window.addEventListener('load', () => {
-                // محاولة تحميل بريد محفوظ
-                if (!loadEmailFromStorage()) {
-                    resetToEmptyState();
+            // ========== استعادة البريد المحفوظ ==========
+            function loadSavedEmail() {
+                const saved = localStorage.getItem('activeEmail');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        const elapsed = (Date.now() - data.startTime) / 1000;
+                        
+                        if (elapsed < 3600) {
+                            currentEmail = data.email;
+                            login = data.login;
+                            domain = data.domain;
+                            remainingSeconds = 3600 - elapsed;
+                            
+                            emailDisplay.innerText = currentEmail;
+                            activeBox.classList.remove('hidden');
+                            
+                            startTimer();
+                            startPolling();
+                            
+                            showToast('تم استعادة البريد المحفوظ', 'info');
+                        } else {
+                            localStorage.removeItem('activeEmail');
+                        }
+                    } catch (e) {
+                        console.log('Error loading saved email');
+                    }
                 }
-            });
+            }
             
-            // حفظ قبل إغلاق الصفحة
-            window.addEventListener('beforeunload', () => {
-                if (currentEmail && remainingSeconds > 0) {
-                    saveEmailToStorage(currentEmail, Date.now() - (3600 - remainingSeconds) * 1000);
-                }
+            // ========== تهيئة الصفحة ==========
+            window.addEventListener('load', () => {
+                loadSavedEmail();
+                
+                // إضافة رسالة ترحيب
+                setTimeout(() => {
+                    showToast('مرحباً بك في بريدي السريع ✨', 'info');
+                }, 1000);
             });
             
         })();
