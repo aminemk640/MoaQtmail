@@ -3,550 +3,1028 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بريدي السريع | بريد مؤقت يعمل 100%</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>بريدك.كوم - بريد مؤقت عربي</title>
+    
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
-        
         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #0a0f1e 0%, #1a1f30 100%);
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
             min-height: 100vh;
-        }
-        
-        .glass-card {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        }
-        
-        .email-badge {
-            background: linear-gradient(45deg, #2563eb, #4f46e5);
-        }
-        
-        .message-item {
-            transition: all 0.3s ease;
-            border-right: 3px solid transparent;
-        }
-        
-        .message-item:hover {
-            border-right-color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateX(-5px);
-        }
-        
-        .timer-box {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border: 2px solid #3b82f6;
-            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 15px;
         }
-        
+
+        /* الحاوية الرئيسية */
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* الهيدر */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            color: white;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #4ecdc4;
+        }
+
+        .logo i {
+            color: #ff6b6b;
+            margin-left: 10px;
+        }
+
+        .subtitle {
+            color: #a8c0d0;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* البطاقة الرئيسية */
+        .main-card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        /* قسم إنشاء البريد */
+        .create-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            color: white;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .email-builder {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .username-field {
+            flex: 2;
+            min-width: 200px;
+        }
+
+        .username-field label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #e0e7ff;
+        }
+
+        .username-field input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            font-size: 18px;
+            transition: all 0.3s;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .username-field input:focus {
+            border-color: white;
+            outline: none;
+            background: white;
+        }
+
+        .domain-field {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .domain-field label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #e0e7ff;
+        }
+
+        .domain-field select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .create-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #4f46e5;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
+
+        /* البريد النشط */
+        .active-email {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .email-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .email-display i {
+            font-size: 30px;
+            color: #4ecdc4;
+        }
+
+        .email-address {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* صندوق الوارد */
+        .inbox-section {
+            padding: 30px;
+            background: #f8fafc;
+        }
+
+        .inbox-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .inbox-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .inbox-title i {
+            font-size: 28px;
+            color: #4f46e5;
+            background: #e0e7ff;
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .inbox-title h2 {
+            font-size: 28px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .inbox-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4f46e5;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .timer i {
+            font-size: 20px;
+        }
+
         .refresh-btn {
-            transition: transform 0.5s ease;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 20px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
         }
-        
+
         .refresh-btn:hover {
-            transform: rotate(180deg);
+            background: #f1f5f9;
+            color: #4f46e5;
         }
-        
-        /* تحسينات للموبايل */
-        @media (max-width: 640px) {
-            .container {
-                padding: 10px;
-            }
+
+        /* قائمة الرسائل */
+        .messages-container {
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
         }
-        
-        /* أنيميشن للرسائل الجديدة */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
         }
-        
-        .new-message {
-            animation: slideIn 0.5s ease forwards;
+
+        .empty-state i {
+            font-size: 80px;
+            color: #cbd5e1;
+            margin-bottom: 20px;
         }
-        
-        #toast {
-            transition: all 0.3s ease;
-            z-index: 9999;
+
+        .empty-state h3 {
+            font-size: 24px;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        .message-item {
+            padding: 20px;
+            border-bottom: 1px solid #f1f5f9;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .message-item:hover {
+            background: #f8fafc;
+            padding-right: 25px;
+        }
+
+        .message-sender {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sender-icon {
+            width: 50px;
+            height: 50px;
+            background: #4f46e5;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .sender-info h4 {
+            font-size: 18px;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .sender-info p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .message-time {
+            color: #94a3b8;
+            font-size: 14px;
+            background: #f1f5f9;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        /* الدومينات السريعة */
+        .quick-domains {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .domain-chip {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #4f46e5;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .domain-chip:hover {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        .domain-chip i {
+            margin-left: 5px;
+        }
+
+        /* الفوتر */
+        .footer {
+            text-align: center;
+            color: #a8c0d0;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer a {
+            color: #4ecdc4;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* مودال الرسالة */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            max-height: calc(80vh - 120px);
+        }
+
+        .message-meta {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1e293b;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            opacity: 0;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body class="text-white">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- الهيدر -->
-        <div class="text-center mb-8">
-            <div class="inline-block p-4 bg-blue-600/30 rounded-full mb-4">
-                <i class="fas fa-envelope-open-text text-5xl text-blue-400"></i>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-2">
-                <span class="text-blue-400">بريدي</span>
-                <span class="text-white">السريع</span>
-            </h1>
-            <p class="text-gray-400">بريد مؤقت يعمل 100% مع جميع المواقع</p>
-        </div>
+<body>
 
-        <!-- بطاقة إنشاء البريد -->
-        <div class="glass-card rounded-2xl p-6 mb-6">
-            <div class="grid md:grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label class="block text-gray-400 mb-2 text-sm">
-                        <i class="fas fa-user ml-1 text-blue-400"></i>
-                        الاسم المخصص (اختياري)
-                    </label>
-                    <div class="relative">
-                        <input type="text" id="customUser" dir="ltr" 
-                               class="w-full bg-gray-900/60 border-2 border-gray-700 rounded-xl py-3 px-4 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition"
-                               placeholder="example">
-                        <button onclick="generateRandomName()" 
-                                class="absolute left-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 p-2">
-                            <i class="fas fa-dice-d6 text-xl"></i>
-                        </button>
-                    </div>
+<div class="main-container">
+    
+    <!-- الهيدر -->
+    <div class="header">
+        <div class="logo">
+            <h1>
+                <i class="fas fa-envelope-open-text"></i>
+                بريد<span>ك.كوم</span>
+            </h1>
+        </div>
+        <p class="subtitle">بريد مؤقت عربي 100% - استقبل رسائلك فوراً من Gmail</p>
+    </div>
+
+    <!-- البطاقة الرئيسية -->
+    <div class="main-card">
+        
+        <!-- قسم إنشاء البريد -->
+        <div class="create-section">
+            <div class="section-title">
+                <i class="fas fa-plus-circle"></i>
+                <span>أنشئ بريدك المؤقت</span>
+            </div>
+
+            <div class="email-builder">
+                <div class="username-field">
+                    <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <input type="text" id="username" value="user" placeholder="اختر اسماً">
                 </div>
-                <div>
-                    <label class="block text-gray-400 mb-2 text-sm">
-                        <i class="fas fa-globe ml-1 text-blue-400"></i>
-                        اختر النطاق
-                    </label>
-                    <select id="domainSelect" class="w-full bg-gray-900/60 border-2 border-gray-700 rounded-xl py-3 px-4 text-white focus:border-blue-500 outline-none">
-                        <optgroup label="🔥 نطاقات مضمونة 100%">
-                            <option value="1secmail.com">1secmail.com ✅</option>
-                            <option value="1secmail.org">1secmail.org ✅</option>
-                            <option value="1secmail.net">1secmail.net ✅</option>
-                            <option value="qiott.com">qiott.com ✅</option>
-                            <option value="kzccv.com">kzccv.com ✅</option>
-                            <option value="wuuvo.com">wuuvo.com ✅</option>
-                        </optgroup>
-                        <optgroup label="✨ نطاقات احتياطية">
-                            <option value="icznn.com">icznn.com</option>
-                            <option value="cxzaw.com">cxzaw.com</option>
-                            <option value="bczmed.com">bczmed.com</option>
-                            <option value="dielack.com">dielack.com</option>
-                            <option value="sablecc.com">sablecc.com</option>
-                            <option value="ficking.com">ficking.com</option>
-                        </optgroup>
+
+                <div class="domain-field">
+                    <label><i class="fas fa-globe"></i> اختر الدومين</label>
+                    <select id="domain">
+                        <option value="teml.net">@teml.net</option>
+                        <option value="tmpeml.com">@tmpeml.com</option>
+                        <option value="tmpbox.net">@tmpbox.net</option>
+                        <option value="moakt.cc">@moakt.cc</option>
+                        <option value="disbox.net">@disbox.net</option>
+                        <option value="tmpmail.org">@tmpmail.org</option>
+                        <option value="tmpmail.net">@tmpmail.net</option>
+                        <option value="tmails.net">@tmails.net</option>
+                        <option value="disbox.org">@disbox.org</option>
+                        <option value="moakt.co">@moakt.co</option>
+                        <option value="moakt.ws">@moakt.ws</option>
+                        <option value="tmail.ws">@tmail.ws</option>
+                        <option value="bareed.ws">@bareed.ws</option>
                     </select>
                 </div>
-            </div>
 
-            <button onclick="createNewEmail()" 
-                    class="w-full email-badge text-white py-4 rounded-xl font-bold text-lg transition-all hover:opacity-90 hover:scale-[1.02] active:scale-100 flex items-center justify-center gap-2">
-                <i class="fas fa-bolt"></i>
-                إنشاء بريد جديد
-            </button>
-        </div>
-
-        <!-- عرض البريد النشط مع المؤقت -->
-        <div id="activeEmailBox" class="hidden mb-6">
-            <div class="timer-box">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="flex-1 w-full">
-                        <div class="text-blue-400 text-sm mb-2">
-                            <i class="fas fa-circle ml-1 text-green-400 text-[8px]"></i>
-                            بريدك النشط
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span id="currentEmailDisplay" dir="ltr" class="text-lg md:text-xl font-mono font-bold text-white bg-gray-900/70 px-4 py-3 rounded-xl border border-gray-700 flex-1 text-left"></span>
-                            <button onclick="copyEmail()" class="bg-blue-600 hover:bg-blue-500 p-3 rounded-xl transition-all" title="نسخ">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="text-center bg-gray-900/70 rounded-xl p-3 min-w-[160px] border border-gray-700">
-                        <div class="text-xs text-gray-400 mb-1">
-                            <i class="fas fa-hourglass-half ml-1"></i>
-                            الوقت المتبقي
-                        </div>
-                        <div id="timerDisplay" class="text-3xl font-mono font-bold text-blue-400" dir="ltr">60:00</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- صندوق الوارد مع التحديث -->
-        <div class="glass-card rounded-2xl p-6">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold flex items-center gap-2">
-                    <i class="fas fa-inbox text-blue-400"></i>
-                    صندوق الوارد
-                    <span id="messagesCount" class="bg-blue-600 text-white text-sm px-2 py-1 rounded-full">0</span>
-                </h2>
-                <div class="flex items-center gap-3">
-                    <div id="loader" class="hidden">
-                        <i class="fas fa-spinner fa-spin text-blue-400 text-xl"></i>
-                    </div>
-                    <button onclick="manualRefresh()" class="refresh-btn bg-gray-800 hover:bg-gray-700 p-3 rounded-xl transition-all">
-                        <i class="fas fa-sync-alt"></i>
+                <div class="create-actions">
+                    <button class="btn-primary" onclick="createEmail()">
+                        <i class="fas fa-check-circle"></i>
+                        إنشاء
+                    </button>
+                    <button class="btn-secondary" onclick="randomEmail()">
+                        <i class="fas fa-random"></i>
+                        عشوائي
                     </button>
                 </div>
             </div>
 
-            <div id="messagesList" class="space-y-3 max-h-[500px] overflow-y-auto">
-                <div class="text-center py-16 text-gray-500">
-                    <i class="fas fa-envelope-open-text text-6xl mb-4 opacity-30"></i>
-                    <p class="text-lg">لا توجد رسائل بعد</p>
-                    <p class="text-sm">أنشئ بريداً وانتظر وصول رسالة التفعيل</p>
+            <!-- عرض البريد النشط -->
+            <div class="active-email" id="active-email-container" style="display: none;">
+                <div class="email-display">
+                    <i class="fas fa-envelope"></i>
+                    <span class="email-address" id="current-email">user@teml.net</span>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- مودال عرض الرسالة -->
-    <div id="msgModal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="glass-card w-full max-w-2xl rounded-2xl overflow-hidden max-h-[90vh]">
-            <div class="p-5 border-b border-gray-700 flex justify-between items-start">
-                <div class="flex-1 text-right">
-                    <h3 id="msgSubject" class="text-xl font-bold text-white mb-2"></h3>
-                    <p id="msgSender" class="text-blue-400 text-sm"></p>
-                </div>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-lg">
-                    <i class="fas fa-times"></i>
+                <button class="copy-btn" onclick="copyEmail()">
+                    <i class="fas fa-copy"></i>
+                    نسخ البريد
                 </button>
             </div>
-            <div id="msgBody" class="p-6 overflow-y-auto max-h-[60vh] bg-white text-gray-900"></div>
-            <div class="p-4 bg-gray-900 text-center text-sm text-gray-400">
-                <span id="msgDate"></span>
+        </div>
+
+        <!-- صندوق الوارد -->
+        <div class="inbox-section">
+            <div class="inbox-header">
+                <div class="inbox-title">
+                    <i class="fas fa-inbox"></i>
+                    <h2>صندوق الوارد</h2>
+                </div>
+                <div class="inbox-controls">
+                    <div class="timer">
+                        <i class="fas fa-hourglass-half"></i>
+                        <span id="timer">10</span> ث
+                    </div>
+                    <button class="refresh-btn" onclick="checkMessages()">
+                        <i class="fas fa-sync-alt" id="refresh-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- رسائل -->
+            <div class="messages-container" id="messages-container">
+                <!-- الحالة الفارغة (تظهر افتراضياً) -->
+                <div class="empty-state" id="empty-state">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <h3>لا توجد رسائل</h3>
+                    <p>أنشئ بريدك وأرسل رسالة من Gmail</p>
+                </div>
+
+                <!-- قائمة الرسائل (مخفية افتراضياً) -->
+                <div id="messages-list" style="display: none;"></div>
+
+                <!-- حالة التحميل -->
+                <div id="loading-state" style="display: none; text-align: center; padding: 80px 20px;">
+                    <div class="loading" style="width: 40px; height: 40px;"></div>
+                    <p style="color: #94a3b8; margin-top: 15px;">جاري فحص الرسائل...</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Toast الإشعارات -->
-    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl font-bold shadow-2xl opacity-0 translate-y-10 pointer-events-none flex items-center gap-2">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMessage"></span>
+    <!-- دومينات سريعة -->
+    <div class="quick-domains">
+        <div class="domain-chip" onclick="quickSelect('teml.net')">
+            <i class="fas fa-bolt"></i> teml.net
+        </div>
+        <div class="domain-chip" onclick="quickSelect('moakt.cc')">
+            <i class="fas fa-bolt"></i> moakt.cc
+        </div>
+        <div class="domain-chip" onclick="quickSelect('tmpmail.org')">
+            <i class="fas fa-bolt"></i> tmpmail.org
+        </div>
+        <div class="domain-chip" onclick="quickSelect('disbox.net')">
+            <i class="fas fa-bolt"></i> disbox.net
+        </div>
+        <div class="domain-chip" onclick="quickSelect('bareed.ws')">
+            <i class="fas fa-bolt"></i> bareed.ws
+        </div>
     </div>
 
-    <script>
-        (function() {
-            // ========== المتغيرات العامة ==========
-            let currentEmail = '';
-            let login = '';
-            let domain = '';
-            let checkInterval = null;
-            let timerInterval = null;
-            let remainingSeconds = 0;
+    <!-- الفوتر -->
+    <div class="footer">
+        <p>
+            <a href="#">الرئيسية</a> • 
+            <a href="#">من نحن</a> • 
+            <a href="#">سياسة الخصوصية</a> • 
+            <a href="#">اتصل بنا</a>
+        </p>
+        <p style="margin-top: 10px;">جميع الحقوق محفوظة © 2024 بريدك.كوم</p>
+    </div>
+</div>
+
+<!-- مودال عرض الرسالة -->
+<div class="modal" id="message-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-subject">عنوان الرسالة</h3>
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="message-meta">
+                <p><strong>من:</strong> <span id="modal-from"></span></p>
+                <p><strong>التاريخ:</strong> <span id="modal-date"></span></p>
+            </div>
+            <div id="modal-body-content" style="line-height: 1.8;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast إشعار -->
+<div class="toast" id="toast">تم النسخ بنجاح</div>
+
+<script>
+    // ============================================
+    // نظام البريد المؤقت - واجهة عربية متكاملة
+    // ============================================
+
+    let currentEmail = '';
+    let messages = [];
+    let timerSeconds = 10;
+    let refreshInterval;
+
+    // الدومينات المتاحة
+    const domains = [
+        'teml.net', 'tmpeml.com', 'tmpbox.net', 'moakt.cc', 
+        'disbox.net', 'tmpmail.org', 'tmpmail.net', 'tmails.net',
+        'disbox.org', 'moakt.co', 'moakt.ws', 'tmail.ws', 'bareed.ws'
+    ];
+
+    // API الإعدادات
+    const API_BASE = 'https://www.1secmail.com/api/v1/';
+
+    // عند تحميل الصفحة
+    window.onload = () => {
+        loadSavedEmail();
+        startAutoRefresh();
+    };
+
+    // تحميل البريد المحفوظ
+    function loadSavedEmail() {
+        const saved = localStorage.getItem('my_temp_email');
+        if (saved) {
+            currentEmail = saved;
+            document.getElementById('current-email').innerText = currentEmail;
+            document.getElementById('active-email-container').style.display = 'flex';
             
-            // API الأساسية - نستخدم عدة مصادر لضمان العمل
-            const API_BASE = 'https://www.1secmail.com/api/v1/';
-            const API_MIRRORS = [
-                'https://api.temp-mail.dev/v1',
-                'https://api.temp-mail.org/v1',
-                'https://www.1secmail.com/api/v1/'
-            ];
+            const [username, domain] = currentEmail.split('@');
+            document.getElementById('username').value = username;
+            document.getElementById('domain').value = domain;
             
-            // عناصر DOM
-            const activeBox = document.getElementById('activeEmailBox');
-            const emailDisplay = document.getElementById('currentEmailDisplay');
-            const messagesList = document.getElementById('messagesList');
-            const loader = document.getElementById('loader');
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            const timerDisplay = document.getElementById('timerDisplay');
-            const messagesCount = document.getElementById('messagesCount');
+            checkMessages();
+        }
+    }
+
+    // إنشاء بريد جديد
+    function createEmail() {
+        let username = document.getElementById('username').value.trim();
+        const domain = document.getElementById('domain').value;
+        
+        if (!username) {
+            username = 'user';
+        }
+        
+        // تنظيف اسم المستخدم
+        username = username.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+        
+        if (!username) {
+            username = 'user' + Math.floor(Math.random() * 1000);
+        }
+        
+        currentEmail = `${username}@${domain}`;
+        
+        // حفظ
+        localStorage.setItem('my_temp_email', currentEmail);
+        
+        // تحديث العرض
+        document.getElementById('current-email').innerText = currentEmail;
+        document.getElementById('active-email-container').style.display = 'flex';
+        
+        // تفريغ الرسائل
+        messages = [];
+        showEmptyState();
+        
+        showToast('✅ تم إنشاء البريد: ' + currentEmail);
+        
+        // فحص فوري
+        setTimeout(checkMessages, 1000);
+    }
+
+    // بريد عشوائي
+    function randomEmail() {
+        const random = Math.random().toString(36).substring(2, 10);
+        const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+        
+        document.getElementById('username').value = random;
+        document.getElementById('domain').value = randomDomain;
+        
+        createEmail();
+    }
+
+    // اختيار سريع للدومين
+    function quickSelect(domain) {
+        document.getElementById('domain').value = domain;
+        showToast('🌐 تم اختيار: @' + domain);
+    }
+
+    // نسخ البريد
+    function copyEmail() {
+        if (!currentEmail) return;
+        
+        navigator.clipboard.writeText(currentEmail).then(() => {
+            showToast('📋 تم نسخ البريد');
+        });
+    }
+
+    // فحص الرسائل
+    async function checkMessages() {
+        if (!currentEmail) {
+            showToast('❌ أنشئ بريداً أولاً');
+            return;
+        }
+        
+        const refreshIcon = document.getElementById('refresh-icon');
+        refreshIcon.classList.add('fa-spin');
+        
+        showLoading(true);
+        
+        const [login, domain] = currentEmail.split('@');
+        
+        try {
+            const response = await fetch(`${API_BASE}?action=getMessages&login=${login}&domain=${domain}`);
             
-            // ========== دالة موثوقة للاتصال بالـ API ==========
-            async function fetchFromAPI(endpoint) {
-                const url = `${API_BASE}?${endpoint}`;
+            if (response.ok) {
+                const data = await response.json();
                 
-                // المحاولة الأولى مباشرة
-                try {
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 ثواني كحد أقصى
-                    
-                    const response = await fetch(url, {
-                        signal: controller.signal,
-                        mode: 'cors',
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    clearTimeout(timeoutId);
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        return { success: true, data };
+                if (data && data.length > 0) {
+                    // رسائل جديدة
+                    if (data.length > messages.length) {
+                        showToast(`📬 رسالة جديدة (${data.length - messages.length})`);
                     }
-                } catch (e) {
-                    console.log('Direct connection failed, trying alternatives...');
-                }
-                
-                // المحاولة الثانية باستخدام CORS proxy
-                const corsProxies = [
-                    'https://api.allorigins.win/raw?url=',
-                    'https://cors-anywhere.herokuapp.com/',
-                    'https://corsproxy.io/?'
-                ];
-                
-                for (const proxy of corsProxies) {
-                    try {
-                        const proxyUrl = proxy + encodeURIComponent(url);
-                        const response = await fetch(proxyUrl);
-                        if (response.ok) {
-                            const data = await response.json();
-                            return { success: true, data };
-                        }
-                    } catch (e) {
-                        continue;
-                    }
-                }
-                
-                // إذا فشل كل شيء، نستخدم بيانات وهمية للاختبار
-                return { success: false, error: 'All connections failed' };
-            }
-            
-            // ========== توليد اسم عشوائي ==========
-            window.generateRandomName = function() {
-                const chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
-                let result = '';
-                for (let i = 0; i < 10; i++) {
-                    result += chars[Math.floor(Math.random() * chars.length)];
-                }
-                document.getElementById('customUser').value = result;
-            };
-            
-            // ========== إنشاء بريد جديد ==========
-            window.createNewEmail = async function() {
-                let user = document.getElementById('customUser').value.trim().toLowerCase();
-                let selectedDomain = document.getElementById('domainSelect').value;
-                
-                if (user && !/^[a-z0-9.]+$/.test(user)) {
-                    showToast('استخدم أحرف إنجليزية فقط', 'error');
-                    return;
-                }
-                
-                showToast('جاري إنشاء البريد...', 'info');
-                
-                try {
-                    if (!user) {
-                        // توليد بريد عشوائي
-                        const randomUser = Math.random().toString(36).substring(2, 15);
-                        currentEmail = `${randomUser}@${selectedDomain}`;
-                    } else {
-                        currentEmail = `${user}@${selectedDomain}`;
+                    
+                    messages = data;
+                    
+                    // جلب تفاصيل كل رسالة
+                    for (let msg of messages) {
+                        const msgResponse = await fetch(`${API_BASE}?action=readMessage&login=${login}&domain=${domain}&id=${msg.id}`);
+                        const msgData = await msgResponse.json();
+                        msg.body = msgData.body || msgData.htmlBody || 'لا يوجد محتوى';
+                        msg.htmlBody = msgData.htmlBody;
                     }
                     
-                    [login, domain] = currentEmail.split('@');
-                    
-                    // عرض البريد
-                    emailDisplay.innerText = currentEmail;
-                    activeBox.classList.remove('hidden');
-                    
-                    // بدء المؤقت (60 دقيقة)
-                    remainingSeconds = 3600;
-                    startTimer();
-                    
-                    // حفظ في LocalStorage
-                    const emailData = {
-                        email: currentEmail,
-                        login: login,
-                        domain: domain,
-                        startTime: Date.now()
-                    };
-                    localStorage.setItem('activeEmail', JSON.stringify(emailData));
-                    
-                    // بدء التحديث الدوري
-                    startPolling();
-                    
-                    showToast('✅ تم إنشاء البريد بنجاح', 'success');
-                    
-                } catch (error) {
-                    showToast('حدث خطأ، حاول مرة أخرى', 'error');
-                }
-            };
-            
-            // ========== بدء المؤقت ==========
-            function startTimer() {
-                if (timerInterval) clearInterval(timerInterval);
-                
-                timerInterval = setInterval(() => {
-                    remainingSeconds--;
-                    
-                    const mins = Math.floor(remainingSeconds / 60);
-                    const secs = remainingSeconds % 60;
-                    timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                    
-                    if (remainingSeconds <= 0) {
-                        clearInterval(timerInterval);
-                        clearInterval(checkInterval);
-                        localStorage.removeItem('activeEmail');
-                        showToast('انتهت صلاحية البريد', 'warning');
-                        activeBox.classList.add('hidden');
-                    }
-                }, 1000);
-            }
-            
-            // ========== جلب الرسائل ==========
-            async function fetchMessages() {
-                if (!login || !domain) return;
-                
-                loader.classList.remove('hidden');
-                
-                const result = await fetchFromAPI(`action=getMessages&login=${login}&domain=${domain}`);
-                
-                if (result.success && result.data) {
-                    updateMessagesList(result.data);
-                }
-                
-                loader.classList.add('hidden');
-            }
-            
-            // ========== تحديث قائمة الرسائل ==========
-            function updateMessagesList(messages) {
-                if (!messages || messages.length === 0) {
-                    messagesList.innerHTML = `
-                        <div class="text-center py-16 text-gray-500">
-                            <i class="fas fa-envelope-open-text text-6xl mb-4 opacity-30"></i>
-                            <p class="text-lg">لا توجد رسائل بعد</p>
-                            <p class="text-sm">انتظر وصول رسالة التفعيل</p>
-                        </div>
-                    `;
-                    messagesCount.innerText = '0';
-                    return;
-                }
-                
-                messagesCount.innerText = messages.length;
-                messagesList.innerHTML = '';
-                
-                messages.forEach((msg, index) => {
-                    const msgDiv = document.createElement('div');
-                    msgDiv.className = `message-item bg-gray-800/40 p-4 rounded-xl flex justify-between items-center cursor-pointer border border-gray-700/50 hover:border-blue-500/50 new-message`;
-                    msgDiv.onclick = () => readMessage(msg.id);
-                    
-                    msgDiv.innerHTML = `
-                        <div class="flex-1 ml-4 overflow-hidden text-right">
-                            <div class="font-bold text-blue-400 flex items-center justify-end gap-2">
-                                <span class="truncate">${msg.from}</span>
-                                ${index === 0 ? '<span class="bg-green-600 text-xs px-2 py-1 rounded-full">جديد</span>' : ''}
-                            </div>
-                            <div class="text-white font-medium truncate text-lg">${msg.subject || '(بدون عنوان)'}</div>
-                            <div class="text-xs text-gray-500 mt-1">${msg.date}</div>
-                        </div>
-                        <div class="bg-blue-600/20 text-blue-400 w-10 h-10 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-                    `;
-                    
-                    messagesList.appendChild(msgDiv);
-                });
-            }
-            
-            // ========== قراءة رسالة ==========
-            async function readMessage(id) {
-                const result = await fetchFromAPI(`action=readMessage&login=${login}&domain=${domain}&id=${id}`);
-                
-                if (result.success && result.data) {
-                    document.getElementById('msgSubject').innerText = result.data.subject || '(بدون عنوان)';
-                    document.getElementById('msgSender').innerText = `من: ${result.data.from}`;
-                    document.getElementById('msgDate').innerText = result.data.date || '';
-                    
-                    let content = result.data.htmlBody || result.data.body.replace(/\n/g, '<br>');
-                    document.getElementById('msgBody').innerHTML = content;
-                    
-                    document.getElementById('msgModal').classList.remove('hidden');
+                    displayMessages(messages);
                 } else {
-                    showToast('تعذر فتح الرسالة', 'error');
+                    // لا توجد رسائل
+                    messages = [];
+                    showEmptyState();
                 }
+            } else {
+                showEmptyState();
+            }
+        } catch (error) {
+            console.error('خطأ:', error);
+            showEmptyState();
+        }
+        
+        showLoading(false);
+        refreshIcon.classList.remove('fa-spin');
+    }
+
+    // عرض الرسائل
+    function displayMessages(msgs) {
+        const listDiv = document.getElementById('messages-list');
+        const emptyDiv = document.getElementById('empty-state');
+        const loadingDiv = document.getElementById('loading-state');
+        
+        emptyDiv.style.display = 'none';
+        loadingDiv.style.display = 'none';
+        listDiv.style.display = 'block';
+        
+        let html = '';
+        msgs.forEach((msg, index) => {
+            let dateStr = 'الآن';
+            if (msg.date) {
+                const date = new Date(msg.date);
+                dateStr = date.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
             }
             
-            // ========== دوال مساعدة ==========
-            window.copyEmail = function() {
-                if (!currentEmail) return;
-                navigator.clipboard.writeText(currentEmail).then(() => {
-                    showToast('📋 تم نسخ البريد');
-                });
-            };
-            
-            window.closeModal = function() {
-                document.getElementById('msgModal').classList.add('hidden');
-            };
-            
-            window.manualRefresh = function() {
-                if (!login || !domain) {
-                    showToast('لا يوجد بريد نشط', 'warning');
-                    return;
-                }
-                fetchMessages();
-                showToast('جاري التحديث...', 'info');
-            };
-            
-            function showToast(message, type = 'success') {
-                const colors = {
-                    success: 'bg-green-600',
-                    error: 'bg-red-600',
-                    warning: 'bg-yellow-600',
-                    info: 'bg-blue-600'
-                };
-                
-                toast.className = `fixed bottom-5 left-1/2 -translate-x-1/2 ${colors[type]} text-white px-6 py-3 rounded-xl font-bold shadow-2xl z-50 flex items-center gap-2 opacity-100 translate-y-0 transition-all duration-300`;
-                toastMessage.innerText = message;
-                
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    toast.style.transform = 'translate(-50%, 20px)';
-                }, 3000);
+            html += `
+                <div class="message-item" onclick='showMessage(${JSON.stringify(msg).replace(/'/g, "\\'")})'>
+                    <div class="message-sender">
+                        <div class="sender-icon">${(msg.from || 'م')[0]}</div>
+                        <div class="sender-info">
+                            <h4>${msg.from || 'مرسل'}</h4>
+                            <p>${msg.subject || '(بدون عنوان)'}</p>
+                        </div>
+                    </div>
+                    <div class="message-time">${dateStr}</div>
+                </div>
+            `;
+        });
+        
+        listDiv.innerHTML = html;
+    }
+
+    // عرض رسالة محددة
+    function showMessage(msg) {
+        document.getElementById('modal-subject').innerText = msg.subject || '(بدون عنوان)';
+        document.getElementById('modal-from').innerText = msg.from || 'غير معروف';
+        document.getElementById('modal-date').innerText = msg.date || '';
+        
+        const contentDiv = document.getElementById('modal-body-content');
+        
+        if (msg.htmlBody) {
+            contentDiv.innerHTML = msg.htmlBody;
+        } else {
+            contentDiv.innerHTML = `<pre style="white-space: pre-wrap; font-family: 'Tajawal';">${msg.body}</pre>`;
+        }
+        
+        document.getElementById('message-modal').style.display = 'flex';
+    }
+
+    // إغلاق المودال
+    function closeModal() {
+        document.getElementById('message-modal').style.display = 'none';
+    }
+
+    // إظهار الحالة الفارغة
+    function showEmptyState() {
+        document.getElementById('empty-state').style.display = 'block';
+        document.getElementById('messages-list').style.display = 'none';
+        document.getElementById('loading-state').style.display = 'none';
+    }
+
+    // إظهار التحميل
+    function showLoading(show) {
+        if (show) {
+            document.getElementById('empty-state').style.display = 'none';
+            document.getElementById('messages-list').style.display = 'none';
+            document.getElementById('loading-state').style.display = 'block';
+        } else {
+            document.getElementById('loading-state').style.display = 'none';
+        }
+    }
+
+    // التحديث التلقائي
+    function startAutoRefresh() {
+        if (refreshInterval) clearInterval(refreshInterval);
+        
+        refreshInterval = setInterval(() => {
+            timerSeconds--;
+            if (timerSeconds <= 0) {
+                timerSeconds = 10;
+                checkMessages();
             }
-            
-            function startPolling() {
-                if (checkInterval) clearInterval(checkInterval);
-                fetchMessages(); // تحديث فوري
-                checkInterval = setInterval(fetchMessages, 5000); // كل 5 ثواني
-            }
-            
-            // ========== استعادة البريد المحفوظ ==========
-            function loadSavedEmail() {
-                const saved = localStorage.getItem('activeEmail');
-                if (saved) {
-                    try {
-                        const data = JSON.parse(saved);
-                        const elapsed = (Date.now() - data.startTime) / 1000;
-                        
-                        if (elapsed < 3600) {
-                            currentEmail = data.email;
-                            login = data.login;
-                            domain = data.domain;
-                            remainingSeconds = 3600 - elapsed;
-                            
-                            emailDisplay.innerText = currentEmail;
-                            activeBox.classList.remove('hidden');
-                            
-                            startTimer();
-                            startPolling();
-                            
-                            showToast('تم استعادة البريد المحفوظ', 'info');
-                        } else {
-                            localStorage.removeItem('activeEmail');
-                        }
-                    } catch (e) {
-                        console.log('Error loading saved email');
-                    }
-                }
-            }
-            
-            // ========== تهيئة الصفحة ==========
-            window.addEventListener('load', () => {
-                loadSavedEmail();
-                
-                // إضافة رسالة ترحيب
-                setTimeout(() => {
-                    showToast('مرحباً بك في بريدي السريع ✨', 'info');
-                }, 1000);
-            });
-            
-        })();
-    </script>
+            document.getElementById('timer').innerText = timerSeconds;
+        }, 1000);
+    }
+
+    // إظهار Toast
+    function showToast(text) {
+        const toast = document.getElementById('toast');
+        toast.innerText = text;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    // النقر خارج المودال
+    window.onclick = (e) => {
+        const modal = document.getElementById('message-modal');
+        if (e.target === modal) {
+            closeModal();
+        }
+    };
+</script>
+
 </body>
 </html>
